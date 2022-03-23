@@ -50,5 +50,5 @@ def airPLS(df, lambda_, porder, itermax, wep, p):
             w[wi]=p
             w[d<0] = j*np.exp(abs(d[d<0])/dssn)
         Z[i,:]=z
-    Xc = Xc
+    Xc = X-Z
     return Xc, Z 
