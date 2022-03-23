@@ -1,10 +1,8 @@
-from scipy.sparse.linalg import spsolve
-from scipy import sparse
-from scipy.sparse import csr_matrix, eye, diags
+from scipy.sparse import diags
 from tqdm import tqdm
 import numpy as np
 
-def airPLS(df, lambda_, porder, itermax, wep, p):
+def airPLS(df, lambda_ = 10e9, porder = 3, itermax = 20, wep = 0.1, p = 0.05):
     '''
     Baseline correction using adaptive iteratively reweighted Penalized Least Squares
     Code adapted from the MATLAB version of airPLS proposed by Zhang
@@ -18,8 +16,6 @@ def airPLS(df, lambda_, porder, itermax, wep, p):
     Output:
     	Xc: the corrected spectra or chromatogram vector (size m*n)
     	Z: the fitted vector (size m*n)
-    Example:
-    	Xc, Z = airPLS(df, lambda_ = 10e9, porder = 3, itermax = 20, wep = 0.1, p = 0.05);
     Sandro K. Otani 09/06/21
     Sílvia Claudino Martins Gomes
     Reference:
@@ -50,5 +46,5 @@ def airPLS(df, lambda_, porder, itermax, wep, p):
             w[wi]=p
             w[d<0] = j*np.exp(abs(d[d<0])/dssn)
         Z[i,:]=z
-    Xc = X-Z
+    Xc = X - Z
     return Xc, Z 
